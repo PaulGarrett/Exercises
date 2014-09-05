@@ -1,0 +1,36 @@
+/* MHV C/C++ Homework#1 - A simple SOS Beacon using the built-in
+   LED on D13.
+   Paul Garrett
+*/
+int basetick=200; //time in ms for "dot"
+
+void setup()
+{
+DDRB = B11111111; // set PORTB (digital 8~13) to outputs
+PORTB = B00000000; // turn off all pins on port B
+}
+void loop()
+{
+for   (int i=0;i<3;i++){
+PORTB = B00100000; //turn on led on Pin D13
+delay(basetick);
+PORTB=~PORTB; //hack to turn off led
+delay(basetick);
+}
+delay(2*basetick);// delay between letters is 3 "dots"
+for   (int i=0;i<3;i++){
+PORTB=B00100000;
+delay(3*basetick); // a "dash" is 3x as long as a "dot"
+PORTB=~PORTB;
+delay(basetick);
+}
+delay(2*basetick);
+for (int i=0;i<3;i++){
+PORTB=B00100000;
+delay(basetick);
+PORTB=~PORTB;
+delay(basetick);
+}
+
+delay(6*basetick); //delay between words is 7 "dots"
+}
